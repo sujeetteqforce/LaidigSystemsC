@@ -1,0 +1,54 @@
+﻿@using LaidigSystemsC.Models
+@model   UserAccount
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+
+
+@*@{
+    ViewBag.Title = "Log in";
+}*@
+
+<h4 >@ViewBag.Title</h4>
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+@Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Login</h4>
+        <hr />
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+
+        <div class="form-group">
+        
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "User Name" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>             
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Login" class="btn btn-primary form-control" />
+            </div>
+        </div>
+        <p>
+            @Html.ActionLink("Register as a new user", "Register")
+        </p>
+    </div>
+}
+
+

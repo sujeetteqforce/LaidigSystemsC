@@ -1,0 +1,57 @@
+﻿@model  LaidigSystemsC.Models.DelayedUpload
+
+
+@{
+    ViewBag.Title = "";
+}
+
+
+<h3>@ViewBag.Message</h3>
+
+@using (Html.BeginForm("Index", "DelayedUplaod", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>DatalogAB File upload</legend>
+
+        <div class="editor-label">
+            <label>DatalogAB Files:</label>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        @Html.Label("Select Type")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton("rbGrp", "1", isChecked: false) @Html.Label("Delayed Upload")
+                        @Html.RadioButton("rbGrp", "2", isChecked: false) @Html.Label("Instant Upload")
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="editor-field">
+            <input type="file" name="fileNames" multiple="multiple" id="fileNames" />
+        </div>
+
+        <div>
+            <p>
+                <input type="submit" value="DatalogAB Files Upload" id="btnSubmit" />
+            </p>
+        </div>
+    </fieldset>
+}
+@*<script>
+        function validate() {
+            if ($('#files').val() == '') {
+                alert('Please select file');
+                return false;
+            }
+        }
+    </script>*@
+
+
+

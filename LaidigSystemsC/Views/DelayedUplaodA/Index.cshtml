@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+
+@using (Html.BeginForm("Index", "DelayedUplaodA", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <h4>DataLogAB  CSV Files Upload</h4>
+
+        <div class="editor-label">
+            <label>Files:</label>
+        </div>
+        <div class="editor-field">
+            <input type="file" name="file" multiple="multiple" id="files" />
+        </div>
+        <p>
+            <input type="submit" value="Upload" onclick="validate();" id="btnSubmit" />
+        </p>
+    </fieldset>
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,56 @@
+﻿@model  LaidigSystemsC.Models.DataLogMonitouch
+
+@{
+    ViewBag.Title = "";
+}
+
+<h3>@ViewBag.Message</h3>
+
+@using (Html.BeginForm("Index", "DelayedMoniTouch", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Monitouch Files Upload</legend>
+
+        <div class="editor-label">
+            <label>Monitouch Files:</label>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        @Html.Label("Select Type")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton("rbGrp", "Delayed", isChecked: false) @Html.Label("Delayed Upload")
+                        @Html.RadioButton("rbGrp", "Instant", isChecked: false) @Html.Label("Instant Upload")
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="editor-field">
+            <input type="file" name="fileNames" multiple="multiple" id="fileNames" />
+        </div>
+
+        <div>
+            <p>
+                <input type="submit" value="Monitouch Files Upload" id="btnSubmit" />
+            </p>
+        </div>
+    </fieldset>
+
+}
+@*<script>
+        function validate() {
+            if ($('#files').val() == '') {
+                alert('Please select file');
+                return false;
+            }
+        }
+    </script>*@
+
+
+

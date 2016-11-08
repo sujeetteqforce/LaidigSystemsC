@@ -1,0 +1,144 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@*@model IPagedList<KidsFunda4.Models.VideoModel>*@
+@model IPagedList<LaidigSystemsC.Models.CsvFile>
+@{
+    ViewBag.Title = "displayCsvFile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<p style="margin-top:70px;">
+    @Html.ActionLink("Back", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Id
+        </th>
+
+        <th>
+            DateofTime
+        </th>
+        <th>
+            CurSysRateCFM
+        </th>
+        <th>
+            ReqRecRateCFM
+        </th>
+        <th>
+            RecSpeedRPM
+        </th>
+        <th>
+            RecTorque
+        </th>
+        <th>
+            RecPressurePSI
+        </th>
+        <th>
+            RecFlowGPM
+        </th>
+        <th>
+            RecPowerHP
+        </th>
+        <th>
+            AdvSpeedDPH
+        </th>
+        <th>
+            AdvTorque
+        </th>
+        <th>
+            AdvPressurePSI
+        </th>
+        <th>
+            Disc1Torq
+        </th>
+        <th>
+            Disc1SpeedRPM
+        </th>
+        <th>
+            Disc1PowerHP
+        </th>
+        <th>
+            Disc2Torq
+        </th>
+        <th>
+            Disc2SpeedRPM
+        </th>
+        <th>
+            Disc2PowerHP
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateofTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurSysRateCFM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReqRecRateCFM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecSpeedRPM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecTorque)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecPressurePSI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecFlowGPM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecPowerHP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdvSpeedDPH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdvTorque)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdvPressurePSI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disc1Torq)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disc1SpeedRPM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disc1PowerHP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disc2Torq)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disc2SpeedRPM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disc2PowerHP)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+        </td>
+    </tr>
+}
+
+</table>
+<div class="col-sm-10">
+    <div class="center">
+        @Html.PagedListPager(Model, page => Url.Action("displayCsvFile", new { page, pagesize = Model.PageSize }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount 
+    </div>
+</div>

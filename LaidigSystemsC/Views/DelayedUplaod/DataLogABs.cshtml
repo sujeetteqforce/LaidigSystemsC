@@ -1,0 +1,151 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@*@model IPagedList<KidsFunda4.Models.VideoModel>*@
+@model IPagedList<LaidigSystemsC.Models.DataLogAB>
+
+@{
+    ViewBag.Title = "DataLogABs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DataLogABs</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            LocalDate
+        </th>
+        <th>
+            LocalTime
+        </th>
+        <th>
+            LMIG12000
+        </th>
+        <th>
+            LMIM12000
+        </th>
+        <th>
+            LMIG11301
+        </th>
+        <th>
+            LMIG11300
+        </th>
+        <th>
+            LMIG11401
+        </th>
+        <th>
+            LMIG11400
+        </th>
+        <th>
+            LMIP11400
+        </th>
+        <th>
+            LMIG10100
+        </th>
+        <th>
+            LMIG10101
+        </th>
+        <th>
+            LMIG10102
+        </th>
+        <th>
+            LMIP10103
+        </th>
+        <th>
+            LMIP10104
+        </th>
+        <th>
+            LMIF10100
+        </th>
+        <th>
+            LMIG11001
+        </th>
+        <th>
+            LMIT11001
+        </th>
+        <th>
+            LMIT11002
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocalDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocalTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIG12000)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIM12000)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIG11301)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIG11300)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIG11401)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIG11400)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIP11400)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIG10100)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIG10101)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIG10102)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIP10103)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIP10104)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIF10100)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIG11001)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIT11001)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LMIT11002)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+<div class="col-sm-10">
+    <div class="center">
+        @Html.PagedListPager(Model, page => Url.Action("DataLogABs", new { page, pagesize = Model.PageSize }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount csvFileList
+    </div>
+</div>

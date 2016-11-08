@@ -1,0 +1,62 @@
+﻿@model  LaidigSystemsC.Models.DelayedUpload
+@{
+    ViewBag.Title = "csvMultipleFileUpload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h3 style="margin-top:69px;">@ViewBag.Message</h3>
+
+@using (Html.BeginForm("MonitouchMultipleFileUpload", "MonitouchMultipleFileupload", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "frmID" }))
+            {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Monitouch Files Upload</legend>
+
+        <div class="editor-label">
+            <label>Monitouch Files:</label>
+        </div>
+        <div class="editor-field">
+            <input type="file" name="fileNames" multiple="multiple" id="fileNames" />
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        @Html.Label("Select Type")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.RadioButton("rbGrp", "Delayed", isChecked: false) @Html.Label("Delayed Upload")
+                        @Html.RadioButton("rbGrp", "Instant", isChecked: false) @Html.Label("Instant Upload")
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <p>
+                <input type="submit" value="Monitouch Files Upload" id="btnSubmit" />
+            </p>
+        </div>
+    </fieldset>
+
+}
+@*<script>
+        function validate() {
+            if ($('#files').val() == '') {
+                alert('Please select file');
+                return false;
+            }
+        }
+    </script>*@
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
