@@ -30,6 +30,7 @@ namespace LaidigSystemsC.Controllers
         public ActionResult Index(IEnumerable<HttpPostedFileBase> fileNames, string rbGrp)
         {
 
+            string UserName = Session["UserName"].ToString();
             string name = rbGrp.ToString();
 
             if (name == "Delayed")
@@ -41,7 +42,7 @@ namespace LaidigSystemsC.Controllers
                         String FileExtn = System.IO.Path.GetExtension(fileAB.FileName);
                         if (!(FileExtn == ".csv" || FileExtn == ".CSV"))
                         {
-                            ViewBag.Message = "Only CSV are allowed!";
+                            ViewBag.Error = "Only CSV are allowed!";
                             return View();
                         }
                         else
@@ -53,24 +54,40 @@ namespace LaidigSystemsC.Controllers
                                 List<DataLogMonitouch> listcsvfiles = new List<DataLogMonitouch>();
 
                                 List<DataLogMonitouch> Csvfiles = new List<DataLogMonitouch>();
-                                //for (int i = 0; i < Request.Files.Count; i++)
-                                //{
-
-                                    var fileName = Path.GetFileName(fileAB.FileName);
-
-                                    var path = Path.Combine(Server.MapPath("~/App_Data/Delayed/Monitouch/"), fileName);
-                                    fileAB.SaveAs(path);
-                                    dt = ProcessCSV(path);
-
-                                    //ViewBag.Message = "Successfully Uploaded DataLogMonitouch files !!!";
-                                //}
+                                string root = "~/App_Data/Delayed/DataLogMonitouches/UserName-" + UserName + "/";
+                                var dirName = "~/App_Data/Delayed/DataLogMonitouches/UserName-" + UserName + "/Date-" + string.Format("{0:dd-MM-yyyy}", DateTime.Now) + "/";
+                                if (!Directory.Exists(root))
+                                {
+                                    System.IO.Directory.CreateDirectory(Server.MapPath(root));
+                                }
+                                if (!Directory.Exists(dirName))
+                                {
+                                    System.IO.Directory.CreateDirectory(Server.MapPath(dirName));
+                                }
+                                
+                                var fileName = Path.GetFileNameWithoutExtension(fileAB.FileName);
+                                var fileNameWithExt = Path.GetFileNameWithoutExtension(fileAB.FileName) + DateTime.Now.ToString("dd-MM-yyyy_hh-mm-ss") + ".csv";
+                                var path = Path.Combine(Server.MapPath(dirName), fileName + DateTime.Now.ToString("dd-MM-yyyy_hh-mm-ss") + ".csv");
+                                fileAB.SaveAs(path);
+                                FileDetail fileDetail = new FileDetail()
+                                {
+                                    FileName = fileNameWithExt,
+                                    Extension = Path.GetExtension(fileNameWithExt),
+                                    Id = Guid.NewGuid()
+                                };
+                                fileDetails.Add(fileDetail);
+                                DelayedUpload upload = new DelayedUpload();
+                                upload.FileDetails = fileDetails;
+                                db.DelayedUploads.Add(upload);
+                                db.SaveChanges();
+                                ViewBag.Message = "Sccessfully upload files on server.";
 
                             }
                         }
                     }
                     else
                     {
-                        ViewBag.Message = "Please Select file within 20 MB.";
+                        ViewBag.Error = "Please Select CSV files only.";
                         return View();
                     }
                 }
@@ -95,16 +112,39 @@ namespace LaidigSystemsC.Controllers
                                 List<FileDetail> fileDetails = new List<FileDetail>();
                                 List<DataLogMonitouch> listcsvfiles = new List<DataLogMonitouch>();
 
-                                List<DataLogMonitouch> Csvfiles = new List<DataLogMonitouch>();
-                                //for (int i = 0; i < Request.Files.Count; i++)
-                                //{
 
-                                    var fileName = Path.GetFileName(fileAB.FileName);
+                                string root = "~/App_Data/Instant/DataLogMonitouches/UserName-" + UserName + "/";
+                                var dirName = "~/App_Data/Instant/DataLogMonitouches/UserName-" + UserName + "/Date-" + string.Format("{0:dd-MM-yyyy}", DateTime.Now) + "/";
 
-                                    var path = Path.Combine(Server.MapPath("~/App_Data/Instant/Monitouch/"), fileName);
-                                    fileAB.SaveAs(path);
-                                    dt = ProcessCSV(path);
-                                    ViewBag.Message = ProcessBulkCopy(dt);
+
+
+                                if (!Directory.Exists(root))
+                                {
+                                    System.IO.Directory.CreateDirectory(Server.MapPath(root));
+                                }
+                                if (!Directory.Exists(dirName))
+                                {
+                                    System.IO.Directory.CreateDirectory(Server.MapPath(dirName));
+                                }
+                                var fileName = Path.GetFileNameWithoutExtension(fileAB.FileName);
+                                var fileNameWithExt = Path.GetFileNameWithoutExtension(fileAB.FileName) + DateTime.Now.ToString("dd-MM-yyyy_hh-mm-ss") + ".csv";
+                                FileDetail fileDetail = new FileDetail()
+                                {
+                                    FileName = fileNameWithExt,
+                                    Extension = Path.GetExtension(fileNameWithExt),
+                                    Id = Guid.NewGuid()
+                                };
+                                fileDetails.Add(fileDetail);
+                                var path = Path.Combine(Server.MapPath(dirName), fileName + DateTime.Now.ToString("dd-MM-yyyy_hh-mm-ss") + ".csv");
+                                fileAB.SaveAs(path);
+                                dt = ProcessCSV(path);
+                                fileAB.SaveAs(path);
+                                DelayedUpload upload1 = new DelayedUpload();
+                                upload1.FileDetails = fileDetails;
+                                db.DelayedUploads.Add(upload1);
+                                dt = ProcessCSV(path);
+                                ViewBag.Message = ProcessBulkCopy(dt);
+                                
                                     DataLogMonitouch upload = new DataLogMonitouch();
                                     listcsvfiles.Add(upload);
                                     db.datalogmonitouchs.Add(upload);

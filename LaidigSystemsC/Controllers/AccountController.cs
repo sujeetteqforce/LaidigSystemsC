@@ -11,7 +11,7 @@ namespace LaidigSystemsC.Controllers
     public class AccountController : Controller
     {
 
-     private   OurDbContext db = new OurDbContext();
+        private OurDbContext db = new OurDbContext();
 
 
         // GET: Account
@@ -33,7 +33,7 @@ namespace LaidigSystemsC.Controllers
         [HttpPost]
         public ActionResult Register(UserAccount account)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 using (OurDbContext db = new OurDbContext())
                 {
@@ -67,7 +67,7 @@ namespace LaidigSystemsC.Controllers
             using (OurDbContext db = new OurDbContext())
             {
                 var usr = db.useraccounts.SingleOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
-                if(usr!=null)
+                if (usr != null)
                 {
                     Session["UserId"] = usr.UserId.ToString();
                     Session["UserName"] = usr.UserName.ToString();
@@ -83,8 +83,8 @@ namespace LaidigSystemsC.Controllers
 
         public ActionResult LoggedIn()
         {
-            
-            if (Session["UserId"]!=null)
+
+            if (Session["UserId"] != null)
             {
                 return View();
             }
@@ -92,11 +92,11 @@ namespace LaidigSystemsC.Controllers
             {
                 return RedirectToAction("Login");
             }
-            
+
         }
 
 
-       
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -104,7 +104,7 @@ namespace LaidigSystemsC.Controllers
         {
             Session.Clear();
             Session.Abandon();
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("Login", "Account");
         }
 
 
@@ -117,15 +117,15 @@ namespace LaidigSystemsC.Controllers
 
         public ActionResult CheckExistingEmail(string email)
         {
-                if (db.useraccounts.Any(x => x.Email == email))
-                {
-                    return Json(string.Format("{0} allready exits", email), JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(true, JsonRequestBehavior.AllowGet);
-                }
-            
+            if (db.useraccounts.Any(x => x.Email == email))
+            {
+                return Json(string.Format("{0} allready exits", email), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         public ActionResult CheckExistingUserName(string username)

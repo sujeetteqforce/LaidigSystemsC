@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using PagedList;
 
 
-  
+
 namespace LaidigSystemsC.Controllers
 {
     public class SiemensController : Controller
@@ -27,6 +27,7 @@ namespace LaidigSystemsC.Controllers
         [HttpPost]
         public ActionResult Index(IEnumerable<HttpPostedFileBase> fileNames, string rbGrp)
         {
+            string UserName = Session["UserName"].ToString();
             string name = rbGrp.ToString();
 
             if (name == "Delayed")
@@ -36,9 +37,10 @@ namespace LaidigSystemsC.Controllers
                     if (fileAB != null && fileAB.ContentLength > 0)
                     {
                         String FileExtn = System.IO.Path.GetExtension(fileAB.FileName);
+
                         if (!(FileExtn == ".csv" || FileExtn == ".CSV"))
                         {
-                            ViewBag.Message = "Only CSV are allowed!";
+                            ViewBag.Error = "Only CSV are allowed!";
                             return View();
                         }
                         else
@@ -50,22 +52,41 @@ namespace LaidigSystemsC.Controllers
                                 List<CsvFile> listcsvfiles = new List<CsvFile>();
 
                                 List<CsvFile> Csvfiles = new List<CsvFile>();
-                                //for (int i = 0; i < Request.Files.Count; i++)
-                                //{
+                                string root = "~/App_Data/Delayed/CsvFile/UserName-" + UserName + "/";
+                                var dirName = "~/App_Data/Delayed/CsvFile/UserName-" + UserName + "/Date-" + string.Format("{0:dd-MM-yyyy}", DateTime.Now) + "/";
 
-                                    var fileName = Path.GetFileName(fileAB.FileName);
 
-                                    var path = Path.Combine(Server.MapPath("~/App_Data/Delayed/CsvFile/"), fileName);
-                                    fileAB.SaveAs(path);
 
-                                //}
-
+                                if (!Directory.Exists(root))
+                                {
+                                    System.IO.Directory.CreateDirectory(Server.MapPath(root));
+                                }
+                                if (!Directory.Exists(dirName))
+                                {
+                                    System.IO.Directory.CreateDirectory(Server.MapPath(dirName));
+                                }
+                                var fileName = Path.GetFileNameWithoutExtension(fileAB.FileName);
+                                var fileNameWithExt = Path.GetFileNameWithoutExtension(fileAB.FileName) + DateTime.Now.ToString("dd-MM-yyyy_hh-mm-ss") + ".csv";
+                                var path = Path.Combine(Server.MapPath(dirName), fileName + DateTime.Now.ToString("dd-MM-yyyy_hh-mm-ss") + ".csv");
+                                fileAB.SaveAs(path);
+                                FileDetail fileDetail = new FileDetail()
+                                {
+                                    FileName = fileNameWithExt,
+                                    Extension = Path.GetExtension(fileNameWithExt),
+                                    Id = Guid.NewGuid()
+                                };
+                                fileDetails.Add(fileDetail);
+                                DelayedUpload upload = new DelayedUpload();
+                                upload.FileDetails = fileDetails;
+                                db.DelayedUploads.Add(upload);
+                                db.SaveChanges();
+                                ViewBag.Message = "Sccessfully upload files on server.";
                             }
                         }
                     }
                     else
                     {
-                        ViewBag.Message = "Please Select file within 20 MB.";
+                        ViewBag.Error = "Please upload a files .";
                         return View();
                     }
                 }
@@ -80,7 +101,7 @@ namespace LaidigSystemsC.Controllers
                         String FileExtn = System.IO.Path.GetExtension(fileAB.FileName);
                         if (!(FileExtn == ".csv" || FileExtn == ".CSV"))
                         {
-                            ViewBag.Message = "Only CSV are allowed!";
+                            ViewBag.Error = "Only CSV are allowed!";
                             return View();
                         }
                         else
@@ -91,29 +112,51 @@ namespace LaidigSystemsC.Controllers
                                 List<FileDetail> fileDetails = new List<FileDetail>();
                                 List<CsvFile> listcsvfiles = new List<CsvFile>();
 
-                                List<CsvFile> Csvfiles = new List<CsvFile>();
-                                //for (int i = 0; i < Request.Files.Count; i++)
-                                //{
 
-                                    var fileName = Path.GetFileName(fileAB.FileName);
 
-                                    var path = Path.Combine(Server.MapPath("~/App_Data/Instant/Siemens/"), fileName);
-                                    fileAB.SaveAs(path);
-                                    dt = ProcessCSV(path);
-                                    ViewBag.Message = ProcessBulkCopy(dt);
-                                    CsvFile upload = new CsvFile();
-                                    listcsvfiles.Add(upload);
-                                    db.csvfiles.Add(upload);
-                                    db.SaveChanges();
-                                    ViewBag.Message = "Successfully Uploaded Sample files !!!";
-                                //}
+                                string root = "~/App_Data/Instant/CsvFile/UserName-" + UserName + "/";
+                                var dirName = "~/App_Data/Instant/CsvFile/UserName-" + UserName + "/Date-" + string.Format("{0:dd-MM-yyyy}", DateTime.Now) + "/";
+
+
+
+                                if (!Directory.Exists(root))
+                                {
+                                    System.IO.Directory.CreateDirectory(Server.MapPath(root));
+                                }
+                                if (!Directory.Exists(dirName))
+                                {
+                                    System.IO.Directory.CreateDirectory(Server.MapPath(dirName));
+                                }
+                                var fileName = Path.GetFileNameWithoutExtension(fileAB.FileName);
+                                var fileNameWithExt = Path.GetFileNameWithoutExtension(fileAB.FileName) + DateTime.Now.ToString("dd-MM-yyyy_hh-mm-ss") + ".csv";
+                                FileDetail fileDetail = new FileDetail()
+                                {
+                                    FileName = fileNameWithExt,
+                                    Extension = Path.GetExtension(fileNameWithExt),
+                                    Id = Guid.NewGuid()
+                                };
+                                fileDetails.Add(fileDetail);
+                                var path = Path.Combine(Server.MapPath(dirName), fileName + DateTime.Now.ToString("dd-MM-yyyy_hh-mm-ss") + ".csv");
+                                fileAB.SaveAs(path);
+                                dt = ProcessCSV(path);
+                                DelayedUpload upload1 = new DelayedUpload();
+                                upload1.FileDetails = fileDetails;
+                                db.DelayedUploads.Add(upload1);
+                                ViewBag.Message = ProcessBulkCopy(dt);
+                                CsvFile upload = new CsvFile();
+                                listcsvfiles.Add(upload);
+                                db.csvfiles.Add(upload);
+                                db.SaveChanges();
+                                ViewBag.Message = "Successfully Uploaded Sample files !!!";
+
+
 
                             }
                         }
                     }
                     else
                     {
-                        ViewBag.Message = "Please Select file within 20 MB.";
+                        ViewBag.Error = "Please Select CSV Files.";
                         return View();
                     }
                 }
@@ -185,23 +228,27 @@ namespace LaidigSystemsC.Controllers
             //For each item in the new split array, dynamically builds our Data columns. Save us having to worry about it.
             // Array.ForEach(strArray, s => dt.Columns.Add(new DataColumn()));
             dt.Columns.Add("Id");
-            dt.Columns.Add("DateofTime");
-            dt.Columns.Add("CurSysRateCFM");
-            dt.Columns.Add("ReqRecRateCFM");
-            dt.Columns.Add("RecSpeedRPM");
-            dt.Columns.Add("RecTorque");
-            dt.Columns.Add("RecPressurePSI");
-            dt.Columns.Add("RecFlowGPM");
-            dt.Columns.Add("RecPowerHP");
-            dt.Columns.Add("AdvSpeedDPH");
-            dt.Columns.Add("AdvTorque");
-            dt.Columns.Add("AdvPressurePSI");
-            dt.Columns.Add("Disc1Torq");
-            dt.Columns.Add("Disc1SpeedRPM");
-            dt.Columns.Add("Disc1PowerHP");
-            dt.Columns.Add("Disc2Torq");
-            dt.Columns.Add("Disc2SpeedRPM");
-            dt.Columns.Add("Disc2PowerHP");
+            dt.Columns.Add("Date");
+            dt.Columns.Add("G10001");
+            dt.Columns.Add("P10100");
+            dt.Columns.Add("P10101");
+            dt.Columns.Add("P11100");
+            dt.Columns.Add("P10200");
+            dt.Columns.Add("P10201");
+            dt.Columns.Add("P10004");
+            dt.Columns.Add("T10000");
+            dt.Columns.Add("G10101");
+            dt.Columns.Add("G103001");
+            dt.Columns.Add("T101100");
+            dt.Columns.Add("T10101");
+            dt.Columns.Add("T10005");
+            dt.Columns.Add("F101000");
+            dt.Columns.Add("F102000");
+            dt.Columns.Add("G115001");
+            dt.Columns.Add("G115011");
+            dt.Columns.Add("M12070");
+            dt.Columns.Add("M12071");
+            dt.Columns.Add("M12072");
 
 
             //Read each line in the CVS file until it’s empty
@@ -210,23 +257,27 @@ namespace LaidigSystemsC.Controllers
                 strArray = line.Split(',');
                 row = dt.NewRow();
                 //row["Id"] = strArray[0];
-                row["DateofTime"] = strArray[0];
-                row["CurSysRateCFM"] = strArray[1];
-                row["ReqRecRateCFM"] = strArray[2];
-                row["RecSpeedRPM"] = strArray[3];
-                row["RecTorque"] = strArray[4];
-                row["RecPressurePSI"] = strArray[5];
-                row["RecFlowGPM"] = strArray[6];
-                row["RecPowerHP"] = strArray[7];
-                row["AdvSpeedDPH"] = strArray[8];
-                row["AdvTorque"] = strArray[9];
-                row["AdvPressurePSI"] = strArray[10];
-                row["Disc1Torq"] = strArray[11];
-                row["Disc1SpeedRPM"] = strArray[12];
-                row["Disc1PowerHP"] = strArray[13];
-                row["Disc2Torq"] = strArray[14];
-                row["Disc2SpeedRPM"] = strArray[15];
-                row["Disc2PowerHP"] = strArray[16];
+                row["Date"] = strArray[0];
+                row["G10001"] = strArray[1];
+                row["P10100"] = strArray[2];
+                row["P10101"] = strArray[3];
+                row["P11100"] = strArray[4];
+                row["P10200"] = strArray[5];
+                row["P10201"] = strArray[6];
+                row["P10004"] = strArray[7];
+                row["T10000"] = strArray[8];
+                row["G10101"] = strArray[9];
+                row["G103001"] = strArray[10];
+                row["T101100"] = strArray[11];
+                row["T10101"] = strArray[12];
+                row["T10005"] = strArray[13];
+                row["F101000"] = strArray[14];
+                row["F102000"] = strArray[15];
+                row["G115001"] = strArray[16];
+                row["G115011"] = strArray[17];
+                row["M12070"] = strArray[18];
+                row["M12071"] = strArray[19];
+                row["M12072"] = strArray[20];
 
 
                 //add our current value to our data row

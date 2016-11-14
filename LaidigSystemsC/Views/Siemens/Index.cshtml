@@ -6,10 +6,19 @@
 
 
 
-<h3>@ViewBag.Message</h3>
+<h4>Sample Data</h4>
+@if (ViewBag.Error != null)
+{
+    <h3 style="color:red ;font-family:'Times New Roman', Times, serif;font-size:18px">@ViewBag.Error</h3>
+}
+else
+{
+    <h3 style="color:green;font-family:'Times New Roman', Times, serif;font-size:18px">@ViewBag.Message</h3>
+}
 
 @using (Html.BeginForm("Index", "Siemens", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
+{
+
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     <fieldset>
@@ -23,8 +32,10 @@
                 </tr>
                 <tr>
                     <td>
-                        @Html.RadioButton("rbGrp", "1", isChecked: false) @Html.Label("Delayed Upload")
-                        @Html.RadioButton("rbGrp", "2", isChecked: false) @Html.Label("Instant Upload")
+
+                        @Html.RadioButton("rbGrp", "Delayed", isChecked: false) @Html.Label("Delayed Upload")
+                        @Html.RadioButton("rbGrp", "Instant", isChecked: true) @Html.Label("Instant Upload")
+
                     </td>
                 </tr>
             </table>
@@ -35,7 +46,7 @@
         <div class="editor-field">
             <input type="file" name="fileNames" multiple="multiple" id="fileNames" />
         </div>
-
+        <br />
         <div>
             <p>
                 <input type="submit" value="Siemens Files Upload" id="btnSubmit" />
