@@ -1,0 +1,174 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<LaidigSystemsC.Models.CsvFile>
+
+@{
+    ViewBag.Title = "displayCsvFile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>displayCsvFile</h2>
+
+<p>
+    @Html.ActionLink("Back", "Index")
+</p>
+<div style="overflow-x:auto;">
+    <table class="table-bordered">
+        <tr style="background-color: #d4d3d3;
+    color: #383737;
+    height: 40px;">
+            <th>Id</th>
+
+            <th>
+               Date
+            </th>
+            <th>
+                G10001
+            </th>
+            <th>
+               P10100
+            </th>
+            <th>
+                P10101
+            </th>
+            <th>
+               P11100
+            </th>
+            <th>
+               P10200
+            </th>
+            <th>
+                P10201
+            </th>
+            <th>
+                P10004
+            </th>
+            <th>
+                T10000
+            </th>
+            <th>
+               G10101
+            </th>
+            <th>
+                G103001
+            </th>
+            <th>
+                T101100
+            </th>
+            <th>
+                T10101
+            </th>
+            <th>
+                T10005
+            </th>
+            <th>
+                F101000
+            </th>
+            <th>
+                F102000
+            </th>
+            <th>
+               G115001
+            </th>
+            <th>
+                G115011
+            </th>
+            <th>
+               M12070
+            </th>
+            <th>
+                M12071
+            </th>
+            <th>
+                M12072
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.G10001)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P10100)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P10101)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P11100)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P10200)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P10201)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.P10004)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.T10000)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.G10101)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.G103001)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.T101100)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.T10101)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.T10005)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.F101000)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.F102000)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.G115001)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.G115011)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.M12070)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.M12071)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.M12072)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })                   
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>
+
+<div class="col-sm-10">
+    <div class="center">
+        @Html.PagedListPager(Model, page => Url.Action("displayCsvFile", new { page, pagesize = Model.PageSize }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount 
+    </div>
+</div>

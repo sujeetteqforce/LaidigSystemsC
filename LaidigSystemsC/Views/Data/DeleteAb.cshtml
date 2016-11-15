@@ -1,0 +1,169 @@
+﻿@model LaidigSystemsC.Models.DataLogAB
+
+@{
+    ViewBag.Title = "DeleteAb";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeleteAb</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DataLogAB</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LocalDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocalDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocalTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocalTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIG12000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIG12000)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIM12000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIM12000)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIG11301)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIG11301)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIG11300)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIG11300)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIG11401)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIG11401)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIG11400)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIG11400)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIP11400)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIP11400)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIG10100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIG10100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIG10101)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIG10101)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIG10102)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIG10102)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIP10103)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIP10103)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIP10104)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIP10104)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIF10100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIF10100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIG11001)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIG11001)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIT11001)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIT11001)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LMIT11002)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LMIT11002)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "DataLogAbPage")
+        </div>
+    }
+</div>

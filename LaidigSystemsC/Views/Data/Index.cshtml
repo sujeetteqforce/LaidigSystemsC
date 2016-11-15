@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Data Tables</h2>
+
+
+<div style="padding:10px;">
+    <div class="row">
+        <div class="btn btn-primary col-lg-2">
+            <a>@Html.ActionLink("CsvFilesAB", "displayCsvFile", "Data", new { id = "" }, null)</a>
+        </div>
+        </div>
+        <div class="row">
+            <div class="btn btn-primary col-lg-2">
+                <a>@Html.ActionLink("DataLogAB", "DataLogAbPage", "Data", new { id = "" }, null)</a>
+            </div>
+            </div>
+    <div class="row">
+        <div class="btn btn-primary col-lg-2">
+            <a>@Html.ActionLink("Monitouch", "DataLogMonitouch", "Data", new { id = "" }, null)</a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .row{
+        margin:5px;
+    }
+    .row a{
+        color:#fff;
+    }
+</style>

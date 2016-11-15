@@ -1,0 +1,161 @@
+﻿@model LaidigSystemsC.Models.DataLogMonitouch
+
+@{
+    ViewBag.Title = "DeleteMonitouch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeleteMonitouch</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DataLogMonitouch</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G12000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G12000)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.M12000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.M12000)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G11301)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G11301)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G11300)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G11300)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G11401)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G11401)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G11400)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G11400)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P11400)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P11400)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G10100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G10100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G10101)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G10101)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G10102)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G10102)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P10103)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P10103)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P10104)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P10104)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F10100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F10100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G11001)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G11001)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T11001)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T11001)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T11002)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T11002)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "DataLogMonitouch")
+        </div>
+    }
+</div>

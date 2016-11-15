@@ -1,0 +1,193 @@
+﻿@model LaidigSystemsC.Models.CsvFile
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="table-bordered">
+    <h4>CsvFile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G10001)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G10001)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P10100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P10100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P10101)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P10101)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P11100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P11100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P10200)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P10200)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P10201)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P10201)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P10004)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P10004)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T10000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T10000)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G10101)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G10101)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G103001)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G103001)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T101100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T101100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T10101)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T10101)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T10005)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T10005)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F101000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F101000)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F102000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F102000)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G115001)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G115001)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.G115011)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.G115011)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.M12070)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.M12070)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.M12071)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.M12071)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.M12072)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.M12072)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "displayCsvFile")
+        </div>
+    }
+</div>
